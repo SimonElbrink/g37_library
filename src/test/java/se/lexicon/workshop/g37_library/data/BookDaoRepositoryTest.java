@@ -15,6 +15,7 @@ import se.lexicon.workshop.g37_library.model.Details;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,7 +64,7 @@ class BookDaoRepositoryTest {
     @Test
     void create() {
         // Arrange
-        Book book = new Book(0,"isbnNumber1012", "NewBook", 10);
+        Book book = new Book(0,"isbnNumber1012", "NewBook", 10, new HashSet<>());
         // Act
         Book persistedBook = entityManager.persist(book);
         // Assert
@@ -116,7 +117,7 @@ class BookDaoRepositoryTest {
     void update() {
         //Arrange
         Book bookOriginal = entityManager.find(Book.class, books.get(8).getBookId());
-        Book bookUpdated = new Book(bookOriginal.getBookId(),"9780261102354","Lord Of The Rings - The Fellowship of the Ring", 14);
+        Book bookUpdated = new Book(bookOriginal.getBookId(),"9780261102354","Lord Of The Rings - The Fellowship of the Ring", 14, new HashSet<>());
 
         //Act
         Book thatIsUpdated = bookDAO.update(bookUpdated);
