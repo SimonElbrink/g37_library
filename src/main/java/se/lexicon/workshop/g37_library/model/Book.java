@@ -16,6 +16,7 @@ public class Book {
     private String isbn;
     private String title;
     private int maxLoanDays;
+    private boolean available;
 
     @ManyToMany (cascade = {DETACH, MERGE, REFRESH, PERSIST},
             fetch = FetchType.LAZY,
@@ -23,20 +24,20 @@ public class Book {
 
     private Set<Author> authors;
 
-    public Book() {
+
+    protected Book() {
     }
 
     public Book(String isbn, String title, int maxLoanDays) {
-        this.isbn = isbn;
-        this.title = title;
-        this.maxLoanDays = maxLoanDays;
+        this(0, isbn, title, maxLoanDays,true, new HashSet<>());
     }
 
-    public Book(int bookId, String isbn, String title, int maxLoanDays, Set<Author> authors) {
+    public Book(int bookId, String isbn, String title, int maxLoanDays, boolean available, Set<Author> authors) {
         this.bookId = bookId;
         this.isbn = isbn;
         this.title = title;
         this.maxLoanDays = maxLoanDays;
+        this.available = available;
         this.authors = authors;
     }
 
@@ -94,6 +95,14 @@ public class Book {
         this.maxLoanDays = maxLoanDays;
     }
 
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
+    }
+
     public Set<Author> getAuthors() {
         return authors;
     }
@@ -107,12 +116,12 @@ public class Book {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Book book = (Book) o;
-        return getMaxLoanDays() == book.getMaxLoanDays() && Objects.equals(getIsbn(), book.getIsbn()) && Objects.equals(getTitle(), book.getTitle());
+        return getMaxLoanDays() == book.getMaxLoanDays() && isAvailable() == book.isAvailable() && Objects.equals(getIsbn(), book.getIsbn()) && Objects.equals(getTitle(), book.getTitle());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getIsbn(), getTitle(), getMaxLoanDays());
+        return Objects.hash(getIsbn(), getTitle(), getMaxLoanDays(), isAvailable());
     }
 
     @Override
@@ -122,6 +131,7 @@ public class Book {
                 ", isbn='" + isbn + '\'' +
                 ", title='" + title + '\'' +
                 ", maxLoanDays=" + maxLoanDays +
+                ", available=" + available +
                 '}';
     }
 }

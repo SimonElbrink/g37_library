@@ -25,7 +25,7 @@ public class AppUser {
             orphanRemoval = true)
     private List<BookLoan> loans;
 
-    public AppUser() {
+    protected AppUser() {
     }
 
     public AppUser(int appUserId, String username, String password, LocalDate regDate, Details userDetails, List<BookLoan> loans) {
@@ -44,13 +44,16 @@ public class AppUser {
     }
 
     public boolean addBookLoan(BookLoan bookLoan) {
-        if (bookLoan == null) throw new NullPointerException("bookLoan was null");
+        if (bookLoan == null) throw new IllegalArgumentException("Param bookLoan was null");
         if (loans == null) loans = new ArrayList<>();
 
-        if (!loans.contains(bookLoan)) {
-            bookLoan.setBorrower(this);
-            this.loans.add(bookLoan);
-            return true;
+        if (bookLoan.getBook().isAvailable()){
+            if (!loans.contains(bookLoan)) {
+                bookLoan.setBorrower(this);
+                bookLoan.getBook().setAvailable(false);
+                this.loans.add(bookLoan);
+                return true;
+            }
         }
 
         return false;
@@ -58,11 +61,13 @@ public class AppUser {
 
 
     public boolean removeBookLoan(BookLoan bookLoan) {
-        if (bookLoan == null) throw new NullPointerException("bookLoan was null");
+        if (bookLoan == null) throw new IllegalArgumentException("Param bookLoan was null");
         if (loans == null) loans = new ArrayList<>();
 
         if (this.loans.remove(bookLoan)) {
             bookLoan.setBorrower(null);
+            bookLoan.getBook().setAvailable(true);
+            bookLoan.setReturned(true);
             return true;
         }
 
@@ -89,6 +94,7 @@ public class AppUser {
             }
         } else {
             for (BookLoan loan : loans) {
+                loan.getBook().setAvailable(false);
                 loan.setBorrower(this);
             }
         }

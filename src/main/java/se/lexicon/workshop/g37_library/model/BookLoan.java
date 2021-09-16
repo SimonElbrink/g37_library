@@ -23,11 +23,11 @@ public class BookLoan {
             fetch = FetchType.EAGER)
     private Book book;
 
-    public BookLoan() {
+    protected BookLoan() {
     }
 
-    public BookLoan(AppUser borrower, Book book) {
-        this(0, LocalDate.now(),null,false,borrower,book);
+    public BookLoan(Book book) {
+        this(0, LocalDate.now(),null,false,null,book);
         calculateDueDate();
     }
 

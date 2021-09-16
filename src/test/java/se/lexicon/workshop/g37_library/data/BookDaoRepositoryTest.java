@@ -64,7 +64,7 @@ class BookDaoRepositoryTest {
     @Test
     void create() {
         // Arrange
-        Book book = new Book(0,"isbnNumber1012", "NewBook", 10, new HashSet<>());
+        Book book = new Book(0,"isbnNumber1012", "NewBook", 10, true, new HashSet<>());
         // Act
         Book persistedBook = entityManager.persist(book);
         // Assert
@@ -72,7 +72,9 @@ class BookDaoRepositoryTest {
                 () -> assertTrue(persistedBook.getBookId() != 0),
                 () -> assertEquals(book.getIsbn(), persistedBook.getIsbn()),
                 () -> assertEquals(book.getTitle(), persistedBook.getTitle()),
-                () -> assertEquals(book.getMaxLoanDays(), persistedBook.getMaxLoanDays())
+                () -> assertEquals(book.getMaxLoanDays(), persistedBook.getMaxLoanDays()),
+                () -> assertEquals(book.isAvailable(), persistedBook.isAvailable()),
+                () -> assertEquals(book.getAuthors(), persistedBook.getAuthors())
         );
 
     }
@@ -117,7 +119,7 @@ class BookDaoRepositoryTest {
     void update() {
         //Arrange
         Book bookOriginal = entityManager.find(Book.class, books.get(8).getBookId());
-        Book bookUpdated = new Book(bookOriginal.getBookId(),"9780261102354","Lord Of The Rings - The Fellowship of the Ring", 14, new HashSet<>());
+        Book bookUpdated = new Book(bookOriginal.getBookId(),"9780261102354","Lord Of The Rings - The Fellowship of the Ring", 14, true, new HashSet<>());
 
         //Act
         Book thatIsUpdated = bookDAO.update(bookUpdated);
