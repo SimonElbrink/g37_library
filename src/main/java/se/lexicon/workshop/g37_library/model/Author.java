@@ -35,6 +35,27 @@ public class Author {
         setWrittenBooks(writtenBooks);
     }
 
+    public void addBook(Book book){
+
+        if(book == null) throw new IllegalArgumentException("Book can not be null!");
+        if (writtenBooks == null) writtenBooks = new HashSet<>();
+
+        if (!writtenBooks.contains(book)){
+            writtenBooks.add(book);
+            book.getAuthors().add(this);
+        }
+    }
+    public void removeBook(Book book){
+
+        if(book == null) throw new IllegalArgumentException("Book can not be null!");
+        if (writtenBooks == null) writtenBooks = new HashSet<>();
+
+        if (writtenBooks.contains(book)){
+            book.getAuthors().remove(this);
+            writtenBooks.remove(book);
+        }
+    }
+
     public int getAuthorId() {
         return authorId;
     }

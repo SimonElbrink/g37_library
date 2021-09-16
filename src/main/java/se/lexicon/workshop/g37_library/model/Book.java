@@ -1,6 +1,7 @@
 package se.lexicon.workshop.g37_library.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -37,6 +38,28 @@ public class Book {
         this.title = title;
         this.maxLoanDays = maxLoanDays;
         this.authors = authors;
+    }
+
+    public void addAuthor(Author author){
+
+        if(author == null) throw new IllegalArgumentException("Author can not be null!");
+        if (authors == null) authors = new HashSet<>();
+
+        if (!authors.contains(author)){
+            authors.add(author);
+            author.getWrittenBooks().add(this);
+        }
+    }
+
+    public void removeAuthor(Author author){
+
+        if(author == null) throw new IllegalArgumentException("Author can not be null!");
+        if (authors == null) authors = new HashSet<>();
+
+        if (authors.contains(author)){
+            authors.remove(author);
+            author.getWrittenBooks().remove(this);
+        }
     }
 
     public int getBookId() {
