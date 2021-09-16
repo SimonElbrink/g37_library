@@ -3,6 +3,7 @@ package se.lexicon.workshop.g37_library.model;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.Objects;
 @Entity
 public class BookLoan {
@@ -25,6 +26,11 @@ public class BookLoan {
     public BookLoan() {
     }
 
+    public BookLoan(AppUser borrower, Book book) {
+        this(0, LocalDate.now(),null,false,borrower,book);
+        calculateDueDate();
+    }
+
     public BookLoan(int loanId, LocalDate loanDate, LocalDate dueDate, boolean returned, AppUser borrower, Book book) {
         this.loanId = loanId;
         this.loanDate = loanDate;
@@ -32,6 +38,13 @@ public class BookLoan {
         this.returned = returned;
         this.borrower = borrower;
         this.book = book;
+    }
+
+    void calculateDueDate(){
+        setDueDate(
+                loanDate.plus(Period.ofDays(book.getMaxLoanDays()))
+        );
+
     }
 
     public int getLoanId() {
