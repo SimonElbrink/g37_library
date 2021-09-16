@@ -17,7 +17,7 @@ public class Details {
     private String name;
     private LocalDate birthDate;
 
-    public Details() {
+    protected Details() {
     }
 
     public Details(String email, String name, LocalDate birthDate) {

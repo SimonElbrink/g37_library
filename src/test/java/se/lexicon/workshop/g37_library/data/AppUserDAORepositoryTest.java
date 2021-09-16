@@ -29,7 +29,7 @@ class AppUserDAORepositoryTest {
             new AppUser("simonElbrink", "DontLookAtMyPassword",
                     new Details("simon@lexicon.se", "Simon Elbrink", LocalDate.parse("1997-03-18"))
             ),
-            new AppUser("ulfbengtsson","ThisIsanOtherPassword",
+            new AppUser("ulfbengtsson","ThisIsAnOtherPassword",
                     new Details("ulf@lexicon.se","Ulf Bengtsson", LocalDate.parse("1982-08-25")))
 
     );

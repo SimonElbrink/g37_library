@@ -21,7 +21,7 @@ public class Author {
     Set<Book> writtenBooks;
 
 
-    public Author() {
+    protected Author() {
     }
 
     public Author(String firstName, String lastName) {
