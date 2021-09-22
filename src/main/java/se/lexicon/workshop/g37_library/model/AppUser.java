@@ -29,12 +29,18 @@ public class AppUser {
     }
 
     public AppUser(int appUserId, String username, String password, LocalDate regDate, Details userDetails, List<BookLoan> loans) {
-
         setAppUserId(appUserId);
         setUsername(username);
         setPassword(password);
         setRegDate(regDate);
         setUserDetails(userDetails);
+
+        // way 3
+//        for (BookLoan b: loans) {
+//            addBookLoan(b);
+//        }
+
+        //Way 4 - Modify the Setter.
         setLoans(loans);
     }
 
@@ -43,6 +49,13 @@ public class AppUser {
 
     }
 
+    /**
+     * Makes sure that borrower and BookLoan is added in both classes.
+     * Maintaining the relationship.
+     * Also changing book to not available.
+     * @param bookLoan
+     * @return
+     */
     public boolean addBookLoan(BookLoan bookLoan) {
         if (bookLoan == null) throw new IllegalArgumentException("Param bookLoan was null");
         if (loans == null) loans = new ArrayList<>();
@@ -75,6 +88,9 @@ public class AppUser {
 
     }
 
+//    public void setLoans(List<BookLoan> loans) {
+//        this.loans = loans;
+//    }
 
     public void setLoans(List<BookLoan> loans) {
         if (loans == null) loans = new ArrayList<>();
