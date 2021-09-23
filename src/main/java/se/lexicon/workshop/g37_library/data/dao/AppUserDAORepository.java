@@ -1,4 +1,4 @@
-package se.lexicon.workshop.g37_library.data;
+package se.lexicon.workshop.g37_library.data.dao;
 
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

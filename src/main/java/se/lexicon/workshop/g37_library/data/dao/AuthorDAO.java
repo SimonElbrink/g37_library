@@ -1,4 +1,4 @@
-package se.lexicon.workshop.g37_library.data;
+package se.lexicon.workshop.g37_library.data.dao;
 
 import se.lexicon.workshop.g37_library.model.Author;
 

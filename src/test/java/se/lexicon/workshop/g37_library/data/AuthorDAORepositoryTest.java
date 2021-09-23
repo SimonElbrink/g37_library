@@ -8,6 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEnti
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+import se.lexicon.workshop.g37_library.data.dao.AuthorDAO;
 import se.lexicon.workshop.g37_library.model.Author;
 
 import java.util.Arrays;

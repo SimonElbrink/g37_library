@@ -8,11 +8,9 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEnti
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
-import se.lexicon.workshop.g37_library.model.AppUser;
+import se.lexicon.workshop.g37_library.data.dao.BookDAO;
 import se.lexicon.workshop.g37_library.model.Book;
-import se.lexicon.workshop.g37_library.model.Details;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.HashSet;
