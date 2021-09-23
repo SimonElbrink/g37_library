@@ -9,6 +9,7 @@ public interface BookRepository extends CrudRepository<Book, Integer> {
 
 
     Collection<Book> findAllBookByTitleContains(String title);
+    Collection<Book> findAllBooksByAvailable(boolean available);
 
 
 

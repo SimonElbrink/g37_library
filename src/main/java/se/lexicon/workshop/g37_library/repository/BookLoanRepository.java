@@ -10,5 +10,7 @@ public interface BookLoanRepository extends CrudRepository<BookLoan, Integer> {
     Collection<BookLoan> findAllBookLoansByReturnedFalse();
     Collection<BookLoan> findAllBookLoansByReturnedTrue();
 
+    Collection<BookLoan> findAllBookLoansByReturned(boolean returned);
+
 
 }

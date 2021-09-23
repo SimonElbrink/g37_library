@@ -5,4 +5,7 @@ import se.lexicon.workshop.g37_library.model.AppUser;
 
 public interface AppUserRepository extends CrudRepository <AppUser, Integer> {
 
+    AppUser findAppUserByUserDetails_EmailIgnoreCase(String email);
+
+    AppUser findAppUserByUsernameIgnoreCase(String username);
 }
