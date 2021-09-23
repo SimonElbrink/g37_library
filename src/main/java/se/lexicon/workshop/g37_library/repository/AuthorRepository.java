@@ -16,4 +16,6 @@ public interface AuthorRepository extends CrudRepository<Author, Integer> {
             "OR " +
             "UPPER(a.lastName) LIKE UPPER(CONCAT('%',:name,'%'))")
     Collection<Author> findAllAuthorsByFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(String name);
+
+
 }

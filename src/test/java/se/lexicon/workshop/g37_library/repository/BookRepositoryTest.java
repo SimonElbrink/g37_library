@@ -74,7 +74,7 @@ class BookRepositoryTest {
         String bookToFind = "Harry Potter";
         Integer numberOfBooks = 7;
         // Act
-        Collection<Book> byBookTitle = bookDAO.findAllBookByTitleContains(bookToFind);
+        Collection<Book> byBookTitle = bookDAO.findAllBooksByTitleContains(bookToFind);
         // Assert
         assertNotNull(byBookTitle);
         assertEquals(numberOfBooks, byBookTitle.size());

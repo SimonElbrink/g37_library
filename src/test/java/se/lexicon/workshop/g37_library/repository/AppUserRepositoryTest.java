@@ -10,8 +10,11 @@ import se.lexicon.workshop.g37_library.model.Details;
 
 import java.time.LocalDate;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @DataJpaTest
 class AppUserRepositoryTest {
@@ -40,5 +43,19 @@ class AppUserRepositoryTest {
                 .collect(Collectors.toList());
     }
 
+    @Test
+    void findAppUserByBirthdateBetween() {
 
+        //Arrange
+        LocalDate start = LocalDate.parse("1980-01-01");
+        LocalDate end = LocalDate.parse("1995-01-01");
+
+        //Act
+        Collection<AppUser> foundAppUsers = appUserRepository.findAppUserByUserDetails_BirthDateBetween(start, end);
+
+        //assert
+        assertEquals(1, foundAppUsers.size());
+
+
+    }
 }
