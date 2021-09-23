@@ -1,13 +1,10 @@
-package se.lexicon.workshop.g37_library.data;
+package se.lexicon.workshop.g37_library.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
 import se.lexicon.workshop.g37_library.model.AppUser;
 import se.lexicon.workshop.g37_library.model.Details;
 
@@ -16,12 +13,16 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static org.junit.jupiter.api.Assertions.*;
 @DataJpaTest
-class AppUserDAORepositoryTest {
+class AppUserRepositoryTest {
 
 
+    @Autowired
     TestEntityManager entityManager;
+
+    @Autowired
+    AppUserRepository appUserRepository;
+
 
     List<AppUser> appUsers = Arrays.asList(
             new AppUser("simonElbrink", "DontLookAtMyPassword",
@@ -34,29 +35,10 @@ class AppUserDAORepositoryTest {
 
     @BeforeEach
     void setUp() {
-
         appUsers = appUsers.stream()
                 .map(entityManager::persist)
                 .collect(Collectors.toList());
     }
 
-    @Test
-    void findById() {
-    }
 
-    @Test
-    void findAll() {
-    }
-
-    @Test
-    void create() {
-    }
-
-    @Test
-    void update() {
-    }
-
-    @Test
-    void delete() {
-    }
 }

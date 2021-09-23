@@ -1,14 +1,10 @@
-package se.lexicon.workshop.g37_library.data;
+package se.lexicon.workshop.g37_library.repository;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestEntityManager;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.transaction.annotation.Transactional;
-import se.lexicon.workshop.g37_library.data.dao.BookDAO;
 import se.lexicon.workshop.g37_library.model.Book;
 
 import java.util.Arrays;
@@ -19,18 +15,14 @@ import java.util.stream.Collectors;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
-@AutoConfigureTestEntityManager
-@AutoConfigureTestDatabase
-@Transactional
-class BookDaoRepositoryTest {
-
+@DataJpaTest
+class BookRepositoryTest {
 
     private TestEntityManager entityManager;
-    private BookDAO bookDAO;
+    private BookRepository bookDAO;
 
     @Autowired
-    public BookDaoRepositoryTest(TestEntityManager entityManager, BookDAO bookDAO) {
+    public BookRepositoryTest(TestEntityManager entityManager, BookRepository bookDAO) {
         this.entityManager = entityManager;
         this.bookDAO = bookDAO;
     }
@@ -49,7 +41,6 @@ class BookDaoRepositoryTest {
             new Book("dffads","Lord Of The Rings 3", 14)
     );
 
-
     @BeforeEach
     void setUp() {
 
@@ -64,7 +55,7 @@ class BookDaoRepositoryTest {
         // Arrange
         Book book = new Book(0,"isbnNumber1012", "NewBook", 10, true, new HashSet<>());
         // Act
-        Book persistedBook = entityManager.persist(book);
+        Book persistedBook = bookDAO.save(book);
         // Assert
         assertAll(
                 () -> assertTrue(persistedBook.getBookId() != 0),
@@ -78,66 +69,15 @@ class BookDaoRepositoryTest {
     }
 
     @Test
-    void findById() {
-        // Arrange
-        Book toFind = books.get(0);
-
-        // Act
-        Book foundBook = bookDAO.findById(toFind.getBookId());
-
-        // Assert
-        assertEquals(toFind,foundBook, "The books was not Equal");
-    }
-
-    @Test
-    void findAll() {
-        // Arrange
-        int countElements = books.size();
-        // Act
-        Collection<Book> foundBooks = bookDAO.findAll();
-
-        // Assert
-        assertEquals(countElements, foundBooks.size());
-    }
-
-    @Test
     void findByBookTitle() {
         // Arrange
         String bookToFind = "Harry Potter";
         Integer numberOfBooks = 7;
         // Act
-        Collection<Book> byBookTitle = bookDAO.findByBookTitle(bookToFind);
+        Collection<Book> byBookTitle = bookDAO.findAllBookByTitleContains(bookToFind);
         // Assert
         assertNotNull(byBookTitle);
         assertEquals(numberOfBooks, byBookTitle.size());
 
-    }
-
-    @Test
-    void update() {
-        //Arrange
-        Book bookOriginal = entityManager.find(Book.class, books.get(8).getBookId());
-        Book bookUpdated = new Book(bookOriginal.getBookId(),"9780261102354","Lord Of The Rings - The Fellowship of the Ring", 14, true, new HashSet<>());
-
-        //Act
-        Book thatIsUpdated = bookDAO.update(bookUpdated);
-
-        //Assert
-        assertAll(
-                () -> assertNotNull(thatIsUpdated),
-                () -> assertEquals(bookUpdated, thatIsUpdated)
-        );
-
-    }
-
-    @Test
-    void delete() {
-        Book toDelete = entityManager.find(Book.class,books.get(0).getBookId());
-
-        bookDAO.delete(toDelete.getBookId());
-
-        Book deletedBook = entityManager.find(Book.class,books.get(0).getBookId());
-
-        assertNull(deletedBook);
     }
 }
