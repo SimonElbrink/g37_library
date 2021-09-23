@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 import se.lexicon.workshop.g37_library.model.Book;
-import se.lexicon.workshop.g37_library.repository.AuthorRepository;
 import se.lexicon.workshop.g37_library.model.Author;
 
 import java.util.ArrayList;
@@ -78,7 +77,7 @@ class AuthorRepositoryTest {
     @Test
     void findAllAuthorByWrittenBooksTitle_OneAuthor() {
         // Arrange
-        String bookTitle = "Harry Potter";
+        String bookTitle = "Harry Potter 1";
         Collection<Author> foundAuthors = new ArrayList<>();
 
         // Act
@@ -113,5 +112,65 @@ class AuthorRepositoryTest {
 
         // Assert
         assertTrue(toPersist.getAuthorId() != 0);
+    }
+
+    @Test
+    void findAllAuthorsByFirstNameOrLastNameIgnoreCaseContains_one() {
+
+        // Arrange
+        String firstOrLastName = "Tolkien";
+
+        // Act
+        Collection<Author> foundAuthors = testObject.findAllAuthorsByFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(firstOrLastName);
+
+        // Assert
+        assertTrue(foundAuthors.contains(authorList.get(0)));
+
+
+    }    @Test
+    void findAllAuthorsByFirstNameOrLastName_one_Contains_ignoreCase() {
+
+        // Arrange
+        String firstOrLastName = "toLKI";
+
+        // Act
+        Collection<Author> foundAuthors = testObject.findAllAuthorsByFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(firstOrLastName);
+
+        // Assert
+        assertTrue(foundAuthors.contains(authorList.get(0)));
+
+
+    }
+    @Test
+    void findAllAuthorsByFirstNameOrLastName_multi() {
+
+        // Arrange
+        String firstOrLastName = "J.";
+
+        // Act
+        Collection<Author> foundAuthors = testObject.findAllAuthorsByFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(firstOrLastName);
+
+        // Assert
+        assertEquals(2, foundAuthors.size());
+        assertTrue(foundAuthors.contains(authorList.get(0)));
+        assertTrue(foundAuthors.contains(authorList.get(1)));
+
+
+    }    @Test
+    void findAllAuthorsByFirstNameOrLastName_multi_Contains_IgnoreCase() {
+
+        // Arrange
+        String firstOrLastName = "j";
+
+        // Act
+        Collection<Author> foundAuthors = testObject.findAllAuthorsByFirstNameContainsIgnoreCaseOrLastNameContainsIgnoreCase(firstOrLastName);
+
+        // Assert
+        assertEquals(3, foundAuthors.size());
+        assertTrue(foundAuthors.contains(authorList.get(0)));
+        assertTrue(foundAuthors.contains(authorList.get(1)));
+        assertTrue(foundAuthors.contains(authorList.get(3)));
+
+
     }
 }
