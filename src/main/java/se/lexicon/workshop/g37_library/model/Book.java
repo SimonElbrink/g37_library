@@ -13,6 +13,7 @@ public class Book {
     @Id //Primary Key
     @GeneratedValue(strategy = GenerationType.IDENTITY) //Strategy for generating Id.
     private int bookId;
+    @Column(unique = true)
     private String isbn;
     private String title;
     private int maxLoanDays;

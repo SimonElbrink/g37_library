@@ -2,6 +2,7 @@ package se.lexicon.workshop.g37_library.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 import se.lexicon.workshop.g37_library.model.Author;
 
 import java.util.Collection;

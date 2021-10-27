@@ -58,7 +58,7 @@ public class AppUser {
      */
     public boolean addBookLoan(BookLoan bookLoan) {
         if (bookLoan == null) throw new IllegalArgumentException("Param bookLoan was null");
-        if (loans == null) loans = new ArrayList<>();
+        if (this.loans == null) this.loans = new ArrayList<>();
 
         if (bookLoan.getBook().isAvailable()){
             if (!loans.contains(bookLoan)) {

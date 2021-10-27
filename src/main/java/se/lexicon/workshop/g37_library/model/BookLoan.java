@@ -27,7 +27,7 @@ public class BookLoan {
     }
 
     public BookLoan(Book book) {
-        this(0, LocalDate.now(),null,false,null,book);
+        this(0, LocalDate.now(),null,false,null, book);
         calculateDueDate();
     }
 
