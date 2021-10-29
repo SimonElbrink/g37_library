@@ -15,7 +15,7 @@ public class BookLoan {
     private LocalDate dueDate;
     private boolean returned;
 
-    @ManyToOne (cascade = {CascadeType.DETACH, CascadeType.REFRESH,},
+    @ManyToOne (cascade = {CascadeType.DETACH, CascadeType.REFRESH},
             fetch = FetchType.EAGER )
     private AppUser borrower;
 

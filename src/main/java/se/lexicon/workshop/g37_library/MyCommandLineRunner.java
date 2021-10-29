@@ -52,7 +52,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
 //                new Details("simon@lexicon.se", "Simon Elbrink", LocalDate.parse("1997-03-18")),
 //                null
 //        );
-        //Way 1 - Manually setting relationships
+        //Way 1 - Manually setting bidirectional relationships
 //        bookLoan.setBorrower(simon_elbrink);
 //        simon_elbrink.getLoans().add(bookLoan);
 
@@ -69,9 +69,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
 
         entityManager.persist(simon_elbrink);
 
-
         //----
-
 
         AppUserForm appUserForm = new AppUserForm("charles", "hello World", LocalDate.now(),
                 "Test@Test.com", "Charles Rudahusha", LocalDate.parse("1997-03-18"));
@@ -93,9 +91,9 @@ public class MyCommandLineRunner implements CommandLineRunner {
 
             }else{
                 entityManager.persist(harry_potter1);
-                BookLoan lendHarryPotter = new BookLoan(harry_potter1);
-                simon_elbrink.addBookLoan(lendHarryPotter);
-                entityManager.persist(lendHarryPotter);
+//                BookLoan lendHarryPotter = new BookLoan(harry_potter1);
+//                simon_elbrink.addBookLoan(lendHarryPotter);
+//                entityManager.persist(lendHarryPotter);
             }
 
 
