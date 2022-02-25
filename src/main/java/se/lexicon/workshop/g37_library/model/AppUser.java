@@ -22,7 +22,7 @@ public class AppUser {
 
     @OneToMany(cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH},
             fetch = FetchType.LAZY,
-            orphanRemoval = true, mappedBy = "borrower")
+            mappedBy = "borrower")
     private List<BookLoan> loans;
 
     protected AppUser() {
