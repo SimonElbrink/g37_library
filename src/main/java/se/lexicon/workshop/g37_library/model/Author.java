@@ -81,6 +81,7 @@ public class Author {
     }
 
     public Set<Book> getWrittenBooks() {
+        if (writtenBooks == null) writtenBooks = new HashSet<>();
         return writtenBooks;
     }
 

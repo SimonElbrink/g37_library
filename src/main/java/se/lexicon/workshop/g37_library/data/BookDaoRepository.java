@@ -32,7 +32,7 @@ public class BookDaoRepository implements BookDAO{
 
     @Override
     public Collection<Book> findByBookTitle(String title) {
-        return entityManager.createQuery("SELECT b FROM Book b WHERE b.title LIKE CONCAT('%', :title, '%') ", Book.class)
+        return entityManager.createQuery("SELECT b FROM Book b WHERE UPPER(b.title) LIKE UPPER(CONCAT('%', :title, '%'))", Book.class)
                 .setParameter("title", title)
                 .getResultList();
     }
